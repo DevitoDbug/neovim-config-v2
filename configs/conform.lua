@@ -1,0 +1,51 @@
+local options = {
+    formatters_by_ft = {
+        go = { "gofumpt", "golines" },
+        c_pp = { "clang-format" },
+        c = { "clang_format" },
+        cpp = { "clang_format" },
+        lua = { "stylua" },
+        javascript = { "prettierd" },
+        typescript = { "prettierd" },
+        python = { "isort", "black" },
+    },
+    formatters = {
+        clang_format = {
+            prepend_args = {
+                "-style={ \
+                IndentWidth: 4, \
+                TabWidth: 4, \
+                UseTab: Never, \
+                AccessModifierOffset: 0, \
+                IndentAccessModifiers: true, \
+                PackConstructorInitializers: Never}",
+            },
+        },
+        golines = {
+            prepend_args = { "--max-len=80" },
+        },
+        formatters = {
+            -- Python
+            black = {
+                prepend_args = {
+                    "--fast",
+                    "--line-length",
+                    "80",
+                },
+            },
+            isort = {
+                prepend_args = {
+                    "--profile",
+                    "black",
+                },
+            },
+        },
+    },
+    format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_fallback = true,
+    },
+}
+
+require("conform").setup(options)
