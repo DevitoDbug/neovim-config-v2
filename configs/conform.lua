@@ -8,6 +8,7 @@ local options = {
         javascript = { "prettierd" },
         typescript = { "prettierd" },
         python = { "isort", "black" },
+        rust = { "rustfmt" },
     },
     formatters = {
         clang_format = {

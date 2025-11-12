@@ -13,10 +13,11 @@ lspconfig.servers = {
     "tailwindcss",
     "eslint",
     "pyright",
+    "rust_analyzer",
 }
 
 -- list of servers configured with default config.
-local default_servers = { "ts_ls", "tailwindcss", "eslint", "gopls", "pyright" }
+local default_servers = { "ts_ls", "tailwindcss", "eslint", "gopls", "pyright", "rust_analyzer" }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
@@ -26,53 +27,6 @@ for _, lsp in ipairs(default_servers) do
         capabilities = capabilities,
     })
 end
-
--- vim.lsp.config("gopls", {
---     on_attach = function(client, bufnr)
---         client.server_capabilities.documentFormattingProvider = false
---         client.server_capabilities.documentRangeFormattingProvider = false
---         on_attach(client, bufnr)
---     end,
---     on_init = on_init,
---     capabilities = capabilities,
---     cmd = { "gopls" },
---     root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
---     settings = {
---         gopls = {
---             gofumpt = true,
---             codelenses = {
---                 gc_details = false,
---                 generate = true,
---                 regenerate_cgo = true,
---                 run_govulncheck = true,
---                 test = true,
---                 tidy = true,
---                 upgrade_dependency = true,
---                 vendor = true,
---             },
---             hints = {
---                 assignVariableTypes = true,
---                 compositeLiteralFields = true,
---                 compositeLiteralTypes = true,
---                 constantValues = true,
---                 functionTypeParameters = true,
---                 parameterNames = true,
---                 rangeVariableTypes = true,
---             },
---             analyses = {
---                 nilness = true,
---                 unusedparams = true,
---                 unusedwrite = true,
---                 useany = true,
---             },
---             usePlaceholders = false,
---             completeUnimported = true,
---             staticcheck = true,
---             directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
---             semanticTokens = true,
---         },
---     },
--- })
 
 vim.lsp.config("clangd", {
     on_attach = function(client, bufnr)
