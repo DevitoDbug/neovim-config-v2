@@ -52,7 +52,4 @@ return {
             require("configs.mason-conform")
         end,
     },
-
-    -- test new blink
-    -- { import = "nvchad.blink.lazyspec" },
 }

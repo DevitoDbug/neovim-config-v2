@@ -17,7 +17,7 @@ lspconfig.servers = {
 }
 
 -- list of servers configured with default config.
-local default_servers = { "ts_ls", "tailwindcss", "eslint", "gopls", "pyright", "rust_analyzer" }
+local default_servers = { "ts_ls", "tailwindcss", "eslint", "vopls", "pyright", "rust_analyzer" }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
@@ -64,3 +64,4 @@ vim.lsp.config("lua_ls", {
         },
     },
 })
+
