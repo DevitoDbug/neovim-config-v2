@@ -13,6 +13,7 @@ local options = {
         "luadoc",
         "make",
         "printf",
+        "templ",
         "toml",
         "vim",
         "vimdoc",

@@ -52,4 +52,8 @@ return {
             require("configs.mason-conform")
         end,
     },
+    {
+        "wakatime/vim-wakatime",
+        lazy = false,
+    },
 }

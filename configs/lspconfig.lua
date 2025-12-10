@@ -6,6 +6,7 @@ local lspconfig = require("nvchad.configs.lspconfig")
 
 -- list of all servers configured.
 lspconfig.servers = {
+    "html",
     "clangd",
     "gopls",
     "lua_ls",
@@ -14,10 +15,12 @@ lspconfig.servers = {
     "eslint",
     "pyright",
     "rust_analyzer",
+    "bashls",
+    "templ",
 }
 
 -- list of servers configured with default config.
-local default_servers = { "ts_ls", "tailwindcss", "eslint", "vopls", "pyright", "rust_analyzer" }
+local default_servers = { "ts_ls", "tailwindcss", "eslint", "vopls", "pyright", "rust_analyzer", "bashld", "html" }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
@@ -27,6 +30,13 @@ for _, lsp in ipairs(default_servers) do
         capabilities = capabilities,
     })
 end
+
+vim.lsp.config("templ", {
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+    filetypes = { "html", "templ" },
+})
 
 vim.lsp.config("clangd", {
     on_attach = function(client, bufnr)
@@ -64,4 +74,3 @@ vim.lsp.config("lua_ls", {
         },
     },
 })
-

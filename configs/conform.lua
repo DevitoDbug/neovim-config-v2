@@ -9,6 +9,8 @@ local options = {
         typescript = { "prettierd" },
         python = { "isort", "black" },
         rust = { "rustfmt" },
+        bash = { "shfmt" },
+        templ = { "templ" },
     },
     formatters = {
         clang_format = {
@@ -31,7 +33,7 @@ local options = {
                 prepend_args = {
                     "--fast",
                     "--line-length",
-                    "80",
+                    "100",
                 },
             },
             isort = {
