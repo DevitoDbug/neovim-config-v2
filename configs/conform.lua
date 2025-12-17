@@ -1,6 +1,6 @@
 local options = {
     formatters_by_ft = {
-        go = { "gofumpt", "golines" },
+        go = { "gofumpt" },
         c_pp = { "clang-format" },
         c = { "clang_format" },
         cpp = { "clang_format" },
@@ -23,9 +23,6 @@ local options = {
                 IndentAccessModifiers: true, \
                 PackConstructorInitializers: Never}",
             },
-        },
-        golines = {
-            prepend_args = { "--max-len=80" },
         },
         formatters = {
             -- Python

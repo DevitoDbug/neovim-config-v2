@@ -31,6 +31,58 @@ for _, lsp in ipairs(default_servers) do
     })
 end
 
+-- Go configs
+vim.lsp.config("gopls", {
+    on_attach = function(client, bufnr)
+        -- keep NvChad defaults
+        on_attach(client, bufnr)
+
+        -- Auto-organize imports on save
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+                local params = vim.lsp.util.make_range_params()
+                params.context = { only = { "source.organizeImports" } }
+                local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 3000)
+                for _, res in pairs(result or {}) do
+                    for _, action in pairs(res.result or {}) do
+                        if action.edit then
+                            vim.lsp.util.apply_workspace_edit(action.edit, "utf-8")
+                        end
+                    end
+                end
+            end,
+        })
+
+        -- Go-only: Fill struct instantly
+        vim.keymap.set("n", "<leader>fs", function()
+            vim.lsp.buf.code_action({
+                apply = true,
+                filter = function(action)
+                    return action.title:match("^Fill")
+                end,
+            })
+        end, { buffer = bufnr, desc = "Go: Fill struct" })
+    end,
+
+    on_init = on_init,
+    capabilities = capabilities,
+
+    settings = {
+        gopls = {
+            usePlaceholders = true,
+            completeUnimported = true,
+            staticcheck = true,
+            analyses = {
+                unusedparams = true,
+                nilness = true,
+                unusedwrite = true,
+            },
+        },
+    },
+})
+
+-- Templ configs
 vim.lsp.config("templ", {
     on_attach = on_attach,
     on_init = on_init,
@@ -38,6 +90,7 @@ vim.lsp.config("templ", {
     filetypes = { "html", "templ" },
 })
 
+-- C/CPP shit
 vim.lsp.config("clangd", {
     on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
@@ -49,6 +102,7 @@ vim.lsp.config("clangd", {
     capabilities = capabilities,
 })
 
+-- Lua configs
 vim.lsp.config("lua_ls", {
     on_attach = on_attach,
     on_init = on_init,
