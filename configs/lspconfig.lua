@@ -20,7 +20,7 @@ lspconfig.servers = {
 }
 
 -- list of servers configured with default config.
-local default_servers = { "ts_ls", "tailwindcss", "eslint", "vopls", "pyright", "rust_analyzer", "bashld", "html" }
+local default_servers = { "ts_ls", "tailwindcss", "eslint", "pyright", "rust_analyzer", "bashls", "html" }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
@@ -70,7 +70,7 @@ vim.lsp.config("gopls", {
 
     settings = {
         gopls = {
-            usePlaceholders = true,
+            usePlaceholders = false,
             completeUnimported = true,
             staticcheck = true,
             analyses = {
