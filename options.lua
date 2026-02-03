@@ -1,6 +1,4 @@
-require("nvchad.options")
-
--- add yours here!
+require "nvchad.options"
 
 local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!
@@ -16,13 +14,13 @@ o.spell = true
 o.winborder = "rounded"
 
 -- Folds
-local ts_fold = vim.fn.exists(":TSFoldEnable") == 1
+local ts_fold = vim.fn.exists ":TSFoldEnable" == 1
 
 if ts_fold then
-    vim.o.foldmethod = "expr"
-    vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+  vim.o.foldmethod = "expr"
+  vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 else
-    vim.o.foldmethod = "indent"
+  vim.o.foldmethod = "indent"
 end
 o.foldenable = true
 o.foldlevel = 99

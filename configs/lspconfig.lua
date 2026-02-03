@@ -2,21 +2,21 @@ local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
-local lspconfig = require("nvchad.configs.lspconfig")
+local lspconfig = require "nvchad.configs.lspconfig"
 
 -- list of all servers configured.
 lspconfig.servers = {
-    "html",
-    "clangd",
-    "gopls",
-    "lua_ls",
-    "ts_ls",
-    "tailwindcss",
-    "eslint",
-    "pyright",
-    "rust_analyzer",
-    "bashls",
-    "templ",
+  "html",
+  "clangd",
+  "gopls",
+  "lua_ls",
+  "ts_ls",
+  "tailwindcss",
+  "eslint",
+  "pyright",
+  "rust_analyzer",
+  "bashls",
+  "templ",
 }
 
 -- list of servers configured with default config.
@@ -24,107 +24,107 @@ local default_servers = { "ts_ls", "tailwindcss", "eslint", "pyright", "rust_ana
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
-    vim.lsp.config(lsp, {
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-    })
+  vim.lsp.config(lsp, {
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+  })
 end
 
 -- Go configs
 vim.lsp.config("gopls", {
-    on_attach = function(client, bufnr)
-        -- keep NvChad defaults
-        on_attach(client, bufnr)
+  on_attach = function(client, bufnr)
+    -- keep NvChad defaults
+    on_attach(client, bufnr)
 
-        -- Auto-organize imports on save
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            callback = function()
-                local params = vim.lsp.util.make_range_params()
-                params.context = { only = { "source.organizeImports" } }
-                local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 3000)
-                for _, res in pairs(result or {}) do
-                    for _, action in pairs(res.result or {}) do
-                        if action.edit then
-                            vim.lsp.util.apply_workspace_edit(action.edit, "utf-8")
-                        end
-                    end
-                end
-            end,
-        })
+    -- Auto-organize imports on save
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      callback = function()
+        local params = vim.lsp.util.make_range_params()
+        params.context = { only = { "source.organizeImports" } }
+        local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 3000)
+        for _, res in pairs(result or {}) do
+          for _, action in pairs(res.result or {}) do
+            if action.edit then
+              vim.lsp.util.apply_workspace_edit(action.edit, "utf-8")
+            end
+          end
+        end
+      end,
+    })
 
-        -- Go-only: Fill struct instantly
-        vim.keymap.set("n", "<leader>fs", function()
-            vim.lsp.buf.code_action({
-                apply = true,
-                filter = function(action)
-                    return action.title:match("^Fill")
-                end,
-            })
-        end, { buffer = bufnr, desc = "Go: Fill struct" })
-    end,
+    -- Go-only: Fill struct instantly
+    vim.keymap.set("n", "<leader>fs", function()
+      vim.lsp.buf.code_action {
+        apply = true,
+        filter = function(action)
+          return action.title:match "^Fill"
+        end,
+      }
+    end, { buffer = bufnr, desc = "Go: Fill struct" })
+  end,
 
-    on_init = on_init,
-    capabilities = capabilities,
+  on_init = on_init,
+  capabilities = capabilities,
 
-    settings = {
-        gopls = {
-            usePlaceholders = false,
-            completeUnimported = true,
-            staticcheck = true,
-            analyses = {
-                unusedparams = true,
-                nilness = true,
-                unusedwrite = true,
-            },
-        },
+  settings = {
+    gopls = {
+      usePlaceholders = false,
+      completeUnimported = true,
+      staticcheck = true,
+      analyses = {
+        unusedparams = true,
+        nilness = true,
+        unusedwrite = true,
+      },
     },
+  },
 })
 
 -- Templ configs
 vim.lsp.config("templ", {
-    on_attach = on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
-    filetypes = { "html", "templ" },
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  filetypes = { "html", "templ" },
 })
 
 -- C/CPP shit
 vim.lsp.config("clangd", {
-    on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
+  on_attach = function(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
 
-        on_attach(client, bufnr)
-    end,
-    on_init = on_init,
-    capabilities = capabilities,
+    on_attach(client, bufnr)
+  end,
+  on_init = on_init,
+  capabilities = capabilities,
 })
 
 -- Lua configs
 vim.lsp.config("lua_ls", {
-    on_attach = on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
 
-    settings = {
-        Lua = {
-            diagnostics = {
-                enable = false, -- Disable all diagnostics from lua_ls
-                -- globals = { "vim" },
-            },
-            workspace = {
-                library = {
-                    vim.fn.expand("$VIMRUNTIME/lua"),
-                    vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
-                    vim.fn.stdpath("data") .. "/lazy/ui/nvchad_types",
-                    vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy",
-                    "${3rd}/love2d/library",
-                },
-                maxPreload = 100000,
-                preloadFileSize = 10000,
-            },
+  settings = {
+    Lua = {
+      diagnostics = {
+        enable = false, -- Disable all diagnostics from lua_ls
+        -- globals = { "vim" },
+      },
+      workspace = {
+        library = {
+          vim.fn.expand "$VIMRUNTIME/lua",
+          vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
+          vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types",
+          vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
+          "${3rd}/love2d/library",
         },
+        maxPreload = 100000,
+        preloadFileSize = 10000,
+      },
     },
+  },
 })
