@@ -1,23 +1,23 @@
 local options = {
-    formatters_by_ft = {
-        go = { "gofumpt" },
-        c_pp = { "clang-format" },
-        c = { "clang_format" },
-        cpp = { "clang_format" },
-        lua = { "stylua" },
-        javascript = { "prettierd" },
-        javascriptreact = { "prettierd" },
-        typescript = { "prettierd" },
-        typescriptreact = { "prettierd" },
-        python = { "isort", "black" },
-        rust = { "rustfmt" },
-        bash = { "shfmt" },
-        templ = { "templ" },
-    },
-    formatters = {
-        clang_format = {
-            prepend_args = {
-                "-style={ \
+  formatters_by_ft = {
+    go = { "gofumpt" },
+    c_pp = { "clang-format" },
+    c = { "clang_format" },
+    cpp = { "clang_format" },
+    lua = { "stylua" },
+    javascript = { "prettierd" },
+    javascriptreact = { "prettierd" },
+    typescript = { "prettierd" },
+    typescriptreact = { "prettierd" },
+    python = { "isort", "black" },
+    rust = { "rustfmt" },
+    bash = { "shfmt" },
+    templ = { "templ" },
+  },
+  formatters = {
+    clang_format = {
+      prepend_args = {
+        "-style={ \
                 IndentWidth: 4, \
                 TabWidth: 4, \
                 UseTab: Never, \
