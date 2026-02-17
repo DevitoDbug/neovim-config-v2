@@ -3,6 +3,7 @@ local lint = require "lint"
 lint.linters_by_ft = {
   lua = { "luacheck" },
   python = { "flake8" },
+  go = { "golangcilint" },
 }
 
 lint.linters.luacheck.args = {

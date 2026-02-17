@@ -17,10 +17,12 @@ lspconfig.servers = {
   "rust_analyzer",
   "bashls",
   "templ",
+  "intelephense",
 }
 
 -- list of servers configured with default config.
-local default_servers = { "ts_ls", "tailwindcss", "eslint", "pyright", "rust_analyzer", "bashls", "html" }
+local default_servers =
+  { "ts_ls", "tailwindcss", "eslint", "pyright", "rust_analyzer", "bashls", "html", "intelephense" }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do

@@ -1,5 +1,12 @@
 return {
   {
+    "EmranMR/tree-sitter-blade",
+    ft = "blade",
+    config = function()
+      require("nvim-treesitter").install "blade"
+    end,
+  },
+  {
     "mfussenegger/nvim-dap",
     config = function()
       require "configs.dap"
@@ -88,5 +95,13 @@ return {
   {
     "wakatime/vim-wakatime",
     lazy = false,
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup()
+    end,
   },
 }

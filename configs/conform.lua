@@ -13,6 +13,7 @@ local options = {
     rust = { "rustfmt" },
     bash = { "shfmt" },
     templ = { "templ" },
+    php = { "pint" },
   },
   formatters = {
     clang_format = {
