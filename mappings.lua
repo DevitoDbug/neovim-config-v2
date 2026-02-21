@@ -71,14 +71,32 @@ vim.api.nvim_create_autocmd("FileType", {
 
       -- Find the string under/near cursor
       local str = nil
-      for s, content, e in line:gmatch '()["\'](.-)["\']()' do
+      for s, content, e in line:gmatch "()[\"'](.-)[\"']()" do
         if col >= s - 1 and col < e then
           str = content
           break
         end
       end
 
+      -- If no quoted string found, try matching <x-component> tag
       if not str then
+        local openingTag = line:match "<x%-([%w%-%.]+)"
+        if openingTag then
+          local component_path = "resources/views/components/" .. openingTag:gsub("%.", "/") .. ".blade.php"
+          if vim.fn.filereadable(component_path) == 1 then
+            vim.cmd("edit " .. component_path)
+            return
+          end
+        end
+
+        local closingTag = line:match "<%/x%-([%w%-%.]+)"
+        if closingTag then
+          local component_path = "resources/views/components/" .. closingTag:gsub("%.", "/") .. ".blade.php"
+          if vim.fn.filereadable(component_path) == 1 then
+            vim.cmd("edit " .. component_path)
+            return
+          end
+        end
         -- Fallback to default gf
         vim.cmd "normal! gf"
         return
