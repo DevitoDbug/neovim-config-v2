@@ -12,6 +12,10 @@ o.softtabstop = 4
 o.relativenumber = true
 o.spell = true
 o.winborder = "rounded"
+o.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+  command = "checktime",
+})
 
 -- Folds
 local ts_fold = vim.fn.exists ":TSFoldEnable" == 1

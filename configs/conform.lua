@@ -13,7 +13,7 @@ local options = {
     rust = { "rustfmt" },
     bash = { "shfmt" },
     templ = { "templ" },
-    blade = { "prettierd" },
+    blade = { "blade-formatter" },
   },
   formatters = {
     clang_format = {
@@ -46,7 +46,7 @@ local options = {
   },
   format_on_save = {
     timeout_ms = 500,
-    lsp_fallback = true,
+    lsp_format = "fallback",
   },
 }
 
