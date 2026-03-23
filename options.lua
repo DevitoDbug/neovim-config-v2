@@ -13,6 +13,7 @@ o.relativenumber = true
 o.spell = true
 o.winborder = "rounded"
 o.autoread = true
+o.wrap = false
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   command = "checktime",
 })

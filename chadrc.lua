@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "ayu_dark",
+  theme = "catppuccin",
 
   -- hl_override = {
   -- 	Comment = { italic = true },
@@ -22,6 +22,12 @@ M.nvdash = { load_on_startup = true }
 M.ui = {
   tabufline = {
     lazyload = false,
+  },
+}
+
+M.nvimtree = {
+  filesystem_watchers = {
+    ignore_dirs = { "vendor" },
   },
 }
 
