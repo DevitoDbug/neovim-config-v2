@@ -27,20 +27,17 @@ local options = {
                 PackConstructorInitializers: Never}",
       },
     },
-    formatters = {
-      -- Python
-      black = {
-        prepend_args = {
-          "--fast",
-          "--line-length",
-          "100",
-        },
+    black = {
+      prepend_args = {
+        "--fast",
+        "--line-length",
+        "100",
       },
-      isort = {
-        prepend_args = {
-          "--profile",
-          "black",
-        },
+    },
+    isort = {
+      prepend_args = {
+        "--profile",
+        "black",
       },
     },
   },

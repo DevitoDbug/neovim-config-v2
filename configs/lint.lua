@@ -6,6 +6,16 @@ lint.linters_by_ft = {
   go = { "golangcilint" },
 }
 
+lint.linters.flake8.args = {
+  "--max-line-length",
+  "100",
+  "--stdin-display-name",
+  function()
+    return vim.api.nvim_buf_get_name(0)
+  end,
+  "-",
+}
+
 lint.linters.luacheck.args = {
   -- unpack(lint.linters.luacheck.args),
   "--globals",
