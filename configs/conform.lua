@@ -14,6 +14,7 @@ local options = {
     bash = { "shfmt" },
     templ = { "templ" },
     blade = { "blade-formatter" },
+    css = { "prettierd" },
   },
   formatters = {
     clang_format = {
