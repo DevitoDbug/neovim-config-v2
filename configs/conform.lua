@@ -15,6 +15,7 @@ local options = {
     templ = { "templ" },
     blade = { "blade-formatter" },
     css = { "prettierd" },
+    html = { "prettierd" },
   },
   formatters = {
     clang_format = {
