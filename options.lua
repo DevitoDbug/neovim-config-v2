@@ -22,10 +22,11 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
 local ts_fold = vim.fn.exists ":TSFoldEnable" == 1
 
 if ts_fold then
-  vim.o.foldmethod = "expr"
-  vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+  o.foldmethod = "expr"
+  o.foldexpr = "nvim_treesitter#foldexpr()"
 else
-  vim.o.foldmethod = "indent"
+  o.foldmethod = "indent"
 end
+
 o.foldenable = true
 o.foldlevel = 99
