@@ -19,10 +19,11 @@ lspconfig.servers = {
   "templ",
   "intelephense",
   "cssls",
+  "dockerls",
 }
 
 -- list of servers configured with default config.
-local default_servers = { "ts_ls", "tailwindcss", "eslint", "pyright", "rust_analyzer", "bashls", "html", "cssls" }
+local default_servers = { "ts_ls", "tailwindcss", "eslint", "rust_analyzer", "bashls", "html", "cssls", "dockerls" }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
@@ -178,6 +179,37 @@ vim.lsp.config("intelephense", {
         "wordpress",
         "phpunit",
         "laravel",
+      },
+    },
+  },
+})
+
+-- Python
+vim.lsp.config("pyright", {
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    local root = client.config.root_dir or vim.fn.getcwd()
+    local paths = { root .. "/venv/bin/python", root .. "/.venv/bin/python" }
+    for _, p in ipairs(paths) do
+      if vim.fn.executable(p) == 1 then
+        client.config.settings.python.pythonPath = p
+
+        client.notify("workspace/didChangeConfiguration", {
+          settings = client.config.settings,
+        })
+        break
+      end
+    end
+  end,
+  on_init = on_init,
+  capabilities = capabilities,
+  root_markers = { "pyrightconfig.json", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
+  settings = {
+    python = {
+      analysis = {
+        autoImportCompletions = true,
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
       },
     },
   },
