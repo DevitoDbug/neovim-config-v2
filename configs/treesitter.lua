@@ -14,6 +14,8 @@ local parsers = {
   "printf",
   "templ",
   "javascript",
+  "typescript",
+  "tsx",
   "css",
   "html",
   "toml",
