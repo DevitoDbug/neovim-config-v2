@@ -23,8 +23,6 @@ end, 100)
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
-
 map("n", "<leader>k", vim.diagnostic.open_float, { desc = "Show diagnostics in a floating window" })
 
 -- Auto-save all buffers after LSP rename
@@ -49,6 +47,14 @@ map("i", "<C-Down>", "<Esc><cmd>m .+1<CR>==gi", opts)
 
 map("v", "<C-Up>", ":m '<-2<CR>gv=gv", opts)
 map("v", "<C-Down>", ":m '>+1<CR>gv=gv", opts)
+
+-- Tabs mappings
+map("n", "+", "<cmd>tabnew<cr>", { desc = "Buffer open new tab" })
+map("n", "_", function()
+  require("nvchad.tabufline").close_buffer()
+end, { desc = "Close buffer if possible" })
+-- New terminal tab
+map("n", "<leader>tt", "<cmd>tabnew | terminal<cr>", { desc = "Buffer open terminal in new tab" })
 
 -- DAP (Debug) keybindings
 map("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", { desc = "Toggle breakpoint" })
